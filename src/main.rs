@@ -2,9 +2,11 @@ use warp::Filter;
 
 #[tokio::main]
 async fn main() {
-    let manifest = r#"{"Implements":["NetworkDriver"]}"#;
     // POST /Plugin.Activate => 200 OK with body 
-    let activate = warp::path!("/Plugin.Activate").map(|| { manifest });
+    let activate = warp::path!("/Plugin.Activate").map(|| {
+	// manifest
+	r#"{"Implements":["NetworkDriver"]}"#
+    });
 	// POST /NetworkDriver.GetCapabilities -> 
     let getCapabilities = warp::path!("/NetworkDriver.GetCapabilities").map(|| { "" });;
 	// POST /NetworkDriver.AllocateNetwork ->

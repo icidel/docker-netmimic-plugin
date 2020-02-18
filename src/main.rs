@@ -22,7 +22,7 @@ fn main() -> std::io::Result<()> {
     // Iterate over clients, blocks if no client available
     for streamResult in listener.incoming() {
         match streamResult {
-            Ok(stream) => {
+            Ok(mut stream) => {
                 let mut request = String::new();
                 stream.read_to_string(&mut request)?;
                 println!("Client asks: {}", request);

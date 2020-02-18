@@ -1,5 +1,7 @@
 use std::os::unix::net::{UnixStream, UnixListener};
 use std::path::Path;
+use std::io::Read;
+use std::io::Write;
 
 fn main() -> std::io::Result<()> {
     let socket = Path::new("plugin.sock");

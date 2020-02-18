@@ -1,6 +1,3 @@
-#![feature(io)]
-#![feature(path)]
-
 use std::os::unix::net::{UnixStream, UnixListener};
 use std::path::Path;
 
@@ -9,14 +6,13 @@ fn main() {
 
     // Delete old socket if necessary
     if socket.exists() {
-        std::fs::remove_file(&socket)?;
-        Ok(())
+        std::fs::remove_file(&socket);
     }
 
     // Bind to socket
     let listener = match UnixListener::bind(&socket) {
         Err(_) => panic!("failed to bind socket"),
-        Ok(listener) => listener,
+        Ok(listener) => listener
     };
 
     println!("Server started, waiting for clients");

@@ -19,6 +19,9 @@ fn main() {
 
     // Iterate over clients, blocks if no client available
     for mut stream in listener.incoming() {
-        println!("Client said: {}", stream.read_to_string().unwrap());
+        let mut request = String::new();
+        stream.read_to_string(&mut request)?;
+        println!("Client asks: {}", request);
+        stream.write_all(b"hello world")?;
     }
 }

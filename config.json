@@ -1,0 +1,16 @@
+{
+  "manifestVersion": "v0",
+  "description": "Mirror network plugin for Docker",
+  "documentation": "https://docs.docker.com/engine/extend/plugins/",
+  "entrypoint": ["/bin/main"],
+  "network": {
+    "type": "none"
+  },
+  "interface" : {
+    "socket": "plugin.sock",
+    "types": ["docker.networkdriver/1.0"]
+  },
+  "Linux": {
+    "capabilities": ["CAP_SYS_ADMIN"]
+  }
+}

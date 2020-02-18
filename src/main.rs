@@ -9,7 +9,7 @@ fn main() {
 
     // Delete old socket if necessary
     if socket.exists() {
-        fs::unlink(&socket).unwrap();
+        std::fs::unlink(&socket).unwrap();
     }
 
     // Bind to socket

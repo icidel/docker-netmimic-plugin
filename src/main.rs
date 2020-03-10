@@ -31,22 +31,21 @@ fn main() -> std::io::Result<()> {
                 stream.read_to_string(&mut request)?;
                 println!("Client asks: {}", request);
                 let response_body = match request {
-                    Some(req) if (req.starts_with("POST /Plugin.Activate")) => "",
-                    Some(req) if (req.starts_with("POST /NetworkPlugin.AllocateNetwork")) => "",
-                    Some(req) if (req.starts_with("POST /NetworkPlugin.FreeNetwork")) => "",
-                    Some(req) if (req.starts_with("POST /NetworkPlugin.CreateNetwork")) => "",
-                    Some(req) if (req.starts_with("POST /NetworkPlugin.DeleteNetwork")) => "",
-                    Some(req) if (req.starts_with("POST /NetworkPlugin.CreateEndpoint")) => "",
-                    Some(req) if (req.starts_with("POST /NetworkPlugin.EndpointOperInfo")) => "",
-                    Some(req) if (req.starts_with("POST /NetworkPlugin.DeleteEndpoint")) => "",
-                    Some(req) if (req.starts_with("POST /NetworkPlugin.Join")) => "",
-                    Some(req) if (req.starts_with("POST /NetworkPlugin.Leave")) => "",
-                    Some(req) if (req.starts_with("POST /NetworkPlugin.DiscoverNew")) => "",
-                    Some(req) if (req.starts_with("POST /NetworkPlugin.DiscoverDelete")) => "",
-                    Some(req) if (req.starts_with("POST /NetworkPlugin.ProgramExternalConnectivity")) => "",
-                    Some(req) if (req.starts_with("POST /NetworkPlugin.RevokeExternalConnectivity")) => "",
-                    Some(req) => return Err(format!("Unknown action {}", req)),
-                    None => return Err("No action"),
+                    if (request.starts_with("POST /Plugin.Activate")) => "",
+                    if (request.starts_with("POST /NetworkPlugin.AllocateNetwork")) => "",
+                    if (request.starts_with("POST /NetworkPlugin.FreeNetwork")) => "",
+                    if (request.starts_with("POST /NetworkPlugin.CreateNetwork")) => "",
+                    if (request.starts_with("POST /NetworkPlugin.DeleteNetwork")) => "",
+                    if (request.starts_with("POST /NetworkPlugin.CreateEndpoint")) => "",
+                    if (request.starts_with("POST /NetworkPlugin.EndpointOperInfo")) => "",
+                    if (request.starts_with("POST /NetworkPlugin.DeleteEndpoint")) => "",
+                    if (request.starts_with("POST /NetworkPlugin.Join")) => "",
+                    if (request.starts_with("POST /NetworkPlugin.Leave")) => "",
+                    if (request.starts_with("POST /NetworkPlugin.DiscoverNew")) => "",
+                    if (request.starts_with("POST /NetworkPlugin.DiscoverDelete")) => "",
+                    if (request.starts_with("POST /NetworkPlugin.ProgramExternalConnectivity")) => "",
+                    if (request.starts_with("POST /NetworkPlugin.RevokeExternalConnectivity")) => "",
+                    .. => return Err(format!("Unknown action {}", request)),
                 };
                 
                 let response = format!("HTTP/1.1 200 OK\r\n\r\n{}", response_body).as_bytes();

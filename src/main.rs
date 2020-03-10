@@ -4,10 +4,6 @@ use std::os::unix::net::{UnixStream, UnixListener};
 use std::path::Path;
 
 fn main() -> std::io::Result<()> {
-    let action_regex = Regex::new(
-    r#"POST \/(?<action>Plugin\.Activate|NetworkDriver\.[^.]+)"#
-    ).unwrap();
-    
     let socket = Path::new("plugin.sock");
 
     // Delete old socket if necessary

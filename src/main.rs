@@ -61,7 +61,7 @@ fn main() -> std::io::Result<()> {
                     req if (req.starts_with("POST /NetworkPlugin.RevokeExternalConnectivity")) => "",
                     _ => return RequestHandling {
                         code: 404,
-                        request: &request,
+                        request: request,
                     },
                 };
                 

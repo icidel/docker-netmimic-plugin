@@ -21,6 +21,14 @@ impl fmt::Display for RequestHandling {
     }
 }
 
+// A sample function to produce an RequestHandling Err
+fn produce_error(request: String) -> std::io::Result<(), RequestHandling> {
+    Err(RequestHandling {
+        code: 404,
+        request: request,
+    })
+}
+
 fn main() -> std::io::Result<()> {
     let socket = Path::new("plugin.sock");
 
@@ -59,10 +67,7 @@ fn main() -> std::io::Result<()> {
                     req if (req.starts_with("POST /NetworkPlugin.DiscoverDelete")) => "",
                     req if (req.starts_with("POST /NetworkPlugin.ProgramExternalConnectivity")) => "",
                     req if (req.starts_with("POST /NetworkPlugin.RevokeExternalConnectivity")) => "",
-                    _ => return Err(RequestHandling {
-                        code: 404,
-                        request: request,
-                    }),
+                    _ => produce_error(request),
                 };
                 
                 let response = format!("HTTP/1.1 200 OK\r\n\r\n{}", response_body).as_bytes();

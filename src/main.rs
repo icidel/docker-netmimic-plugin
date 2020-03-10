@@ -41,7 +41,7 @@ fn main() -> std::io::Result<()> {
                     req if (req.starts_with("POST /NetworkPlugin.DiscoverDelete")) => "",
                     req if (req.starts_with("POST /NetworkPlugin.ProgramExternalConnectivity")) => "",
                     req if (req.starts_with("POST /NetworkPlugin.RevokeExternalConnectivity")) => "",
-                    _ => return Err("Unknown action")),
+                    _ => return Err("Unknown action"),
                 };
                 
                 let response = format!("HTTP/1.1 200 OK\r\n\r\n{}", response_body).as_bytes();

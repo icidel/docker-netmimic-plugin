@@ -1,3 +1,4 @@
+use std::fmt; // for custom error handling formatting
 use std::io::Read;
 use std::io::Write;
 use std::os::unix::net::{UnixStream, UnixListener};

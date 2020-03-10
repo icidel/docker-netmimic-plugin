@@ -3,6 +3,23 @@ use std::io::Write;
 use std::os::unix::net::{UnixStream, UnixListener};
 use std::path::Path;
 
+#[derive(Debug)] // derive std::fmt::Debug on RequestHandling
+struct RequestHandling {
+    code: usize,
+    request: String,
+}
+
+impl fmt::Display for RequestHandling {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let err_msg = match self.code {
+            404 => format!("No match found for request: {}",self.request),
+            _ => format!("Unknown error code: {}",self.code),
+        };
+
+        write!(f, "{}", err_msg)
+    }
+}
+
 fn main() -> std::io::Result<()> {
     let socket = Path::new("plugin.sock");
 
@@ -41,7 +58,10 @@ fn main() -> std::io::Result<()> {
                     req if (req.starts_with("POST /NetworkPlugin.DiscoverDelete")) => "",
                     req if (req.starts_with("POST /NetworkPlugin.ProgramExternalConnectivity")) => "",
                     req if (req.starts_with("POST /NetworkPlugin.RevokeExternalConnectivity")) => "",
-                    _ => return Err("Unknown action"),
+                    _ => return RequestHandling {
+                        code: 404,
+                        request: &request,
+                    },
                 };
                 
                 let response = format!("HTTP/1.1 200 OK\r\n\r\n{}", response_body).as_bytes();
